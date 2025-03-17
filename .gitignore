@@ -1,0 +1,54 @@
+# Arduino build directory
+build/
+*.build/
+*.build.json
+
+# Arduino IDE specific files
+.vscode/
+.idea/
+*.code-workspace
+.vs/
+
+# Arduino temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Arduino sketch backup files
+*.bak
+*.backup
+*.bak~
+
+# Arduino build output files
+*.hex
+*.bin
+*.elf
+*.eep
+*.lss
+*.sym
+*.map
+*.lst
+
+# Arduino library files
+libraries/
+*.zip
+*.tar.gz
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arduino preferences
+preferences.txt
+
+# Arduino hardware specific
+hardware/
+tools/
+platform.txt
+platformio.ini
+
+# Arduino debug files
+*.debug
+*.debug.cfg 
