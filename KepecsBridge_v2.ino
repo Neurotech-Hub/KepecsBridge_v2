@@ -30,10 +30,15 @@
 #define MOTOR_SLEEP 4
 
 #define MOTOR_STEPS 200 // Most steppers are 200 steps/rev (1.8 degrees/step)
-#define RPM 120
+#define MOTOR0_RPM 480
+#define MOTOR1_RPM 120
+#define MOTOR0_MICROSTEPS 1
+#define MOTOR1_MICROSTEPS 1
 
 // Global position tracker
 int currentPosition = 0;
+// !! may need to change  these fixed numbers depending on microstepping
+// !! see also: handleCalibration()
 const int M0_TOP_STEP_LIMIT = 18000;
 bool isCalibrated = false; // Track calibration status
 
@@ -293,8 +298,8 @@ void setup()
   digitalWrite(MOTOR_SLEEP, HIGH); // enable=HIGH
 
   // Initialize both steppers
-  stepper0.begin(RPM, 8); // Start with 1:8 microstepping
-  stepper1.begin(RPM, 8);
+  stepper0.begin(MOTOR0_RPM, MOTOR0_MICROSTEPS); // Start with 1:8 microstepping
+  stepper1.begin(MOTOR1_RPM, MOTOR1_MICROSTEPS);
 
   // Set enable pin active state (active LOW)
   stepper0.setEnableActiveState(LOW);
