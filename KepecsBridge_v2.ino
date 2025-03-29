@@ -30,10 +30,13 @@
 #define MOTOR_SLEEP 4
 
 #define MOTOR_STEPS 200 // Most steppers are 200 steps/rev (1.8 degrees/step)
-#define MOTOR0_RPM 480
+#define MOTOR0_RPM 800
 #define MOTOR1_RPM 120
 #define MOTOR0_MICROSTEPS 1
 #define MOTOR1_MICROSTEPS 1
+
+// Calibration parameters
+#define CAL_STEP_SIZE 200 // Step size for calibration sequence
 
 // Global position tracker
 int currentPosition = 0;
@@ -110,8 +113,8 @@ void handleCalibration()
 
     while (totalSteps < 3000)
     {
-      stepper0.rotate(100); // Direct rotation for calibration
-      totalSteps += 100;
+      stepper0.rotate(CAL_STEP_SIZE); // Direct rotation for calibration
+      totalSteps += CAL_STEP_SIZE;
       bool currentState = digitalRead(MAG_SENSOR);
 
       if (currentState == 1)
@@ -134,8 +137,8 @@ void handleCalibration()
   int stepsDown = 0;
   while (stepsDown < M0_TOP_STEP_LIMIT)
   {
-    stepper0.rotate(-100); // Direct rotation for calibration
-    stepsDown += 100;
+    stepper0.rotate(-CAL_STEP_SIZE); // Direct rotation for calibration
+    stepsDown += CAL_STEP_SIZE;
     bool currentState = digitalRead(MAG_SENSOR);
 
     if (currentState == 0)
@@ -298,8 +301,13 @@ void setup()
   digitalWrite(MOTOR_SLEEP, HIGH); // enable=HIGH
 
   // Initialize both steppers
-  stepper0.begin(MOTOR0_RPM, MOTOR0_MICROSTEPS); // Start with 1:8 microstepping
+  stepper0.begin(MOTOR0_RPM, MOTOR0_MICROSTEPS);
   stepper1.begin(MOTOR1_RPM, MOTOR1_MICROSTEPS);
+
+  // Configure speed profile for faster acceleration
+  // Using LINEAR_SPEED mode with higher acceleration/deceleration in steps/sec^2
+  stepper0.setSpeedProfile(BasicStepperDriver::LINEAR_SPEED, 5000, 5000);
+  stepper1.setSpeedProfile(BasicStepperDriver::LINEAR_SPEED, 5000, 5000);
 
   // Set enable pin active state (active LOW)
   stepper0.setEnableActiveState(LOW);
