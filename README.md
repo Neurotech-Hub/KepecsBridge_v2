@@ -38,7 +38,7 @@ Arduino-based dual stepper motor controller with magnetic sensor calibration.
    - If not listed, ensure ESP32 board package is installed
 
 2. **Upload Process**
-   - If device is in deep sleep, enter boot mode:
+   - If device is unresponsive, enter boot mode:
      1. Hold the Boot button
      2. Press and release the Reset button
      3. Release the Boot button
