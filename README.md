@@ -2,6 +2,11 @@
 
 Arduino-based dual stepper motor controller with magnetic sensor calibration.
 
+## Prerequisites
+
+1. Install the ESP32 board package in Arduino IDE following the [official guide](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)
+2. Install the [StepperDriver library](https://github.com/laurb9/StepperDriver) in Arduino IDE
+
 ## Features
 
 - Dual A4988 stepper motor control
@@ -28,10 +33,19 @@ Arduino-based dual stepper motor controller with magnetic sensor calibration.
 
 ## Setup
 
-1. Upload sketch to ESP32
-2. Open Serial Monitor at 115200 baud
-3. Run `cal` command to calibrate
-4. Use other commands to control motors
+1. **Board Selection**
+   - In Arduino IDE, select Tools -> Board -> esp32 -> Adafruit Feather ESP32-S3 2MB PSRAM
+   - If not listed, ensure ESP32 board package is installed
+
+2. **Upload Process**
+   - If device is in deep sleep, enter boot mode:
+     1. Hold the Boot button
+     2. Press and release the Reset button
+     3. Release the Boot button
+   - Upload sketch to ESP32
+   - Open Serial Monitor at 115200 baud
+   - Run `cal` command to calibrate
+   - Use other commands to control motors
 
 ## Safety
 
