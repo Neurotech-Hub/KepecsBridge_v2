@@ -42,7 +42,7 @@
 int currentPosition = 0;
 // !! may need to change  these fixed numbers depending on microstepping
 // !! see also: handleCalibration()
-const int M0_TOP_STEP_LIMIT = 18000;
+const int M0_TOP_STEP_LIMIT = 32000;
 bool isCalibrated = false; // Track calibration status
 
 // Function to handle rotations with position tracking
@@ -111,21 +111,21 @@ void handleCalibration()
     Serial.println("Moving up to find sensor...");
     int totalSteps = 0;
 
-    while (totalSteps < 3000)
+    while (totalSteps < 6000)
     {
       stepper0.rotate(CAL_STEP_SIZE); // Direct rotation for calibration
       totalSteps += CAL_STEP_SIZE;
       bool currentState = digitalRead(MAG_SENSOR);
-
+ 
       if (currentState == 1)
       {
         Serial.println("Found sensor, moving down to calibrate...");
         break;
       }
 
-      if (totalSteps >= 3000)
+      if (totalSteps >= 6000)
       {
-        Serial.println("Calibration failed: No sensor detected after 3000 steps");
+        Serial.println("Calibration failed: No sensor detected after 6000 steps");
         stepper0.disable();
         return;
       }
